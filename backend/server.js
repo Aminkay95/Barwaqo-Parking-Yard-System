@@ -7,8 +7,8 @@ const app = express()
 
 const PORT = process.env.PORT || 5000;
 app.get('/', (req, res) => {
-    res.send('Hasta histavist muchachos')
+    res.send('Hello from docker-dev with hot reload on save?')
 })
 app.listen(PORT, () => {
-    console.log(`Backend up and running on port ${PORT}`)
+    console.log(`Backend up and running on port hello000000${PORT}`)
 })

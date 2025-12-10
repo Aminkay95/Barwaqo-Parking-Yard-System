@@ -13,4 +13,4 @@ RUN npm install -g nodemon
 
 EXPOSE 5000
 
-CMD ["nodemon", "server.js"]
+CMD ["nodemon", "run", "dev"]
