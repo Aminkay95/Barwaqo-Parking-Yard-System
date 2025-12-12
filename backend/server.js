@@ -1,6 +1,7 @@
 import express from 'express'
 import dotenv from 'dotenv'
-import sequelize from './config/db.js'
+// import sequelize from './config/db.js'
+import { sequelize, Gatepass, Users, UsersAction, Payments, MonthlyTrucks, StockTaking} from "./src/models/indexModel.js"
 
 dotenv.config()
 
