@@ -32,7 +32,23 @@ const Users = sequelize.define('users', {
     hashedPassword: {
         type: DataTypes.STRING,
         allowNull: false,
+    },
+    isDeleted:{
+        type: DataTypes.STRING,
+        defaultValue: 'false'
     }
-})
+},
+{
+    defaultScope:{
+        attributes: { exclude: ['hashedPassword']}
+    },
+    scopes: {
+        withPassword: {
+            attributes: {}
+        }
+    }
+}
+
+)
 
 export default Users;

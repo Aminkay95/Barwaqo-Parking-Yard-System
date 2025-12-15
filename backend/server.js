@@ -1,8 +1,12 @@
+// imports
+
 import express from 'express'
 import dotenv from 'dotenv'
-// import sequelize from './config/db.js'
 import { sequelize, Gatepass, Users, UsersAction, Payments, MonthlyTrucks, StockTaking} from "./src/models/indexModel.js"
 import errorMiddleware from './src/middlewares/errorMiddleware.js'
+import userRoute from "./src/routes/userRoutes.js"
+
+
 
 dotenv.config()
 
@@ -24,7 +28,7 @@ const PORT = process.env.PORT || 5000;
 app.get('/', (req, res) => {
     res.send('Hello from docker-dev with hot reload on save?')
 })
-
+app.use('/api/users', userRoute)
 //Error Middleware
 
 app.use(errorMiddleware)
