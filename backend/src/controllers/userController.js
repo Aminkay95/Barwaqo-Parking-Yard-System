@@ -96,12 +96,6 @@ const createUser = asyncHandler( async(req, res) => {
 //Get all Users
 const getAllUsers = asyncHandler(async(req, res) => {
 
-    if(!req.user && req.user.role !== 'admin'){
-        return res.status(401).json({
-            success: false,
-            message: 'Unauthorized'
-        })
-    }
     let { page = 1, pageSize = 10 } = req.query
     const offset = (page - 1) * pageSize
     
@@ -132,10 +126,9 @@ const getUserById = asyncHandler( async(req, res) => {
     const user = await Users.findByPk(id)
 
     if(!user){
-        return res.status(404).json({
-            success: false,
-            message: 'Resource not found.'
-        })
+        const error = new Error('Resource not found')
+        error.statusCode = 404;
+        throw error
     }
 
     return res.status(200).json({
@@ -147,10 +140,71 @@ const getUserById = asyncHandler( async(req, res) => {
 })
 
 //Update User Details
+const updateUser = asyncHandler( async(req, res) => {
+    
+    //Check if the user exists
+    const id = req.params.id;
 
+    const user = await Users.findByPk(id)
+
+    if(!user){
+        const error = new Error('Resource not found')
+        error.statusCode = 404;
+        throw error
+    }
+
+
+    const { firstName, lastName, email, role } = req.body;
+    
+  
+
+    const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+
+    if(email && !isValidEmail(email)){
+
+        const error = new Error('Invalid Email format')
+        error.statusCode = 400;
+        throw error
+        
+    }    
+    
+    //Check email exists in DB to avoid duplicates
+
+    if(email && email !== user.email){
+        const emailExists = await Users.findOne({
+            where: { email: email.trim()}
+        })
+
+        if(emailExists){
+
+            const error = new Error('Email already in use')
+            error.statusCode = 400;
+            throw error
+        }
+    }
+    
+    // check for validity and cleaning before saving to db
+    if (firstName !== undefined) user.firstName = firstName.trim();
+    if (lastName !== undefined) user.lastName = lastName.trim();
+    if (email !== undefined) user.email = email.trim();
+    if (role !== undefined) user.role = role.trim();
+
+    
+    await user.save()
+
+    return res.status(200).json({
+        success: true,
+        message: "User updated Successfully"
+    })    
+
+})
 
 
 //Get my Profile
+
+const getMyProfile = asyncHandler( async(req, res) => {
+
+})
 
 //Update my profile
 
@@ -166,5 +220,6 @@ export {
     logInUser,
     createUser,
     getAllUsers,
-    getUserById
+    getUserById,
+    updateUser
 }

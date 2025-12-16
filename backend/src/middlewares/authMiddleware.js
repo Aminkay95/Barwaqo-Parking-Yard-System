@@ -7,7 +7,10 @@ function authMiddleware(req, res, next){
     const token = req.headers.authorization?.split(" ")[1];
 
     if(!token){
-        return res.status(401).json({message: "Unauthorized"})
+        const error = new Error('Unauthorized')
+        error.statusCode = 401;
+        throw error
+        
     }
 
     //Check Token Validity
@@ -27,7 +30,9 @@ function isAdmin(req, res, next) {
     if(req.user && req.user.role === "admin"){
         next()
     } else {
-        res.status(403).json({message: "Access Denied."})
+        const error = new Error('Access Denied')
+        error.statusCode = 403;
+        throw error
     }
 }
 

@@ -1,6 +1,6 @@
 // Imports
 import express from "express"
-import { logInUser, createUser, getAllUsers, getUserById } from "../controllers/userController.js";
+import { logInUser, createUser, getAllUsers, getUserById, updateUser } from "../controllers/userController.js";
 import { authMiddleware, isAdmin } from "../middlewares/authMiddleware.js";
 
 //instantiate router
@@ -12,15 +12,15 @@ router.route('/login').post(logInUser)
 // '/'
 router.route('/')
 .get(authMiddleware, isAdmin, getAllUsers ) // Get All users
-.post(createUser) // Create User
+.post(authMiddleware, isAdmin, createUser) // Create User
 
 
 
 
 //Get User Admin
 router.route('/:id')
-.get(authMiddleware, isAdmin, getAllUsers  ) // Get User by ID 
-.patch(authMiddleware, isAdmin, getUserById  ) //Update User 
+.get(authMiddleware, isAdmin, getUserById ) // Get User by ID 
+.patch(authMiddleware, isAdmin, updateUser ) //Update User 
 
 
 // Get User Authenticated User
