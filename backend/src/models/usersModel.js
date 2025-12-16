@@ -34,8 +34,8 @@ const Users = sequelize.define('users', {
         allowNull: false,
     },
     isDeleted:{
-        type: DataTypes.STRING,
-        defaultValue: 'false'
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 },
 {

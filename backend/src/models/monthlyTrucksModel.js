@@ -26,7 +26,8 @@ const MonthlyTrucks = sequelize.define('monthlyTrucks', {
     },
 
     isDeleted: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 })
 

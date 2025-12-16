@@ -20,7 +20,8 @@ const StockTaking = sequelize.define('stockTaking', {
     },
 
     isDeleted: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 })
 

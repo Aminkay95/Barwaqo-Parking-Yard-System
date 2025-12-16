@@ -12,7 +12,7 @@ router.route('/login').post(logInUser)
 // '/'
 router.route('/')
 .get(authMiddleware, isAdmin, getAllUsers ) // Get All users
-.post(authMiddleware, isAdmin, createUser) // Create User
+.post(createUser) // Create User
 
 
 
@@ -28,6 +28,6 @@ router.route('/me')
 .get(authMiddleware, ) //Get User Details
 .patch(authMiddleware, ) //Update User Details
 
-
+//Soft delete User
 
 export default router

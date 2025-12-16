@@ -26,7 +26,8 @@ const UsersAction = sequelize.define('usersAction', {
     },
 
     isDeleted: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 })
 

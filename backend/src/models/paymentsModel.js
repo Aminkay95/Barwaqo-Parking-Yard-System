@@ -28,7 +28,8 @@ const Payments = sequelize.define('payments', {
     },
 
     isDeleted: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 })
 

@@ -15,10 +15,12 @@ app.use(express.json())
 
 
 try {
+    //Connect to db
     await sequelize.authenticate();
     console.log('Connected to DB!');
 
-    await sequelize.sync({ alter:true})
+    //Create Tables
+    await sequelize.sync({ force:true})
     console.log('DB Synced.')
 } catch (err) {
     console.error("DB connection failed due to ",err)

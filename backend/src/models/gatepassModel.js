@@ -63,7 +63,8 @@ const Gatepass = sequelize.define('gatepass', {
     },
 
     isDeleted: {
-        type: DataTypes.BOOLEAN
+        type: DataTypes.BOOLEAN,
+        defaultValue: false
     }
 
 
